@@ -41,7 +41,7 @@ public class UserController {
     public @ResponseBody
     MessageJson removeUser(@RequestParam("user_id") Integer id) {
         MessageJson m = new MessageJson("Ban user thất bại", false);
-        User user = userRepository.findOne(id);
+        User user = userRepository.getOne(id);
         try {
             user.setEnabled(0);
             userRepository.save(user);
@@ -57,7 +57,7 @@ public class UserController {
     public @ResponseBody
     MessageJson unbanUser(@RequestParam("user_id") Integer id) {
         MessageJson m = new MessageJson("Unban user thất bại", false);
-        User user = userRepository.findOne(id);
+        User user = userRepository.getOne(id);
         try {
             user.setEnabled(1);
             userRepository.save(user);
@@ -82,7 +82,7 @@ public class UserController {
     
     @RequestMapping(value = "/edit-user", method = RequestMethod.GET)
     public ModelAndView editUser(@RequestParam(value = "user_id") Integer id) throws SQLException {
-        return new ModelAndView("/home/edit-user", "user", userRepository.findOne(id));
+        return new ModelAndView("/home/edit-user", "user", userRepository.getOne(id));
     }
     
     @RequestMapping(value = "/edit-user", method = RequestMethod.POST)

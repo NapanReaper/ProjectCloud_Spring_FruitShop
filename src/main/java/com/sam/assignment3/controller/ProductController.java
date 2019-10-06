@@ -65,7 +65,7 @@ public class ProductController {
         model.put("id", cateId);
         model.put("pagenumber", pageable.getPageNumber() + 1);
         model.put("listCate", categoryRepository.findAll());
-        model.put("categoryId", categoryRepository.findOne(cateId));
+        model.put("categoryId", categoryRepository.getOne(cateId));
         model.addAttribute("product", new Category());
         if (cateId > -1) {
             List<Product> listFilterSearchPage = productRepository.findNameFilter(keyword, cateId, pageable);
@@ -118,13 +118,13 @@ public class ProductController {
     @RequestMapping(value = "/details", method = RequestMethod.GET)
     public ModelAndView details(@RequestParam(value = "id", required = false) int id, ModelMap model) throws SQLException {
         model.put("listCate", categoryRepository.findAll());
-        return new ModelAndView("/product/details", "product", productRepository.findOne(id));
+        return new ModelAndView("/product/details", "product", productRepository.getOne(id));
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public ModelAndView edit(@RequestParam(value = "id", required = false) int id, ModelMap model) throws SQLException {
         model.put("listCate", categoryRepository.findAll());
-        return new ModelAndView("/product/edit", "product", productRepository.findOne(id));
+        return new ModelAndView("/product/edit", "product", productRepository.getOne(id));
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
@@ -146,7 +146,7 @@ public class ProductController {
             model.addAttribute("error", "Product in use");
             return "redirect:home/index";
         }
-        productRepository.delete(id);
+        productRepository.delete(productRepository.getOne(id));
         return "redirect:home/index";
     }
 }

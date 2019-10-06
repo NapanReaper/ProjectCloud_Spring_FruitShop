@@ -54,11 +54,11 @@ public class ShoppingController {
         List<Cart> myCart = (List<Cart>) session.getAttribute("cart");
         if (myCart == null) {
             myCart = new ArrayList<>();
-            myCart.add(new Cart(productRepository.findOne(id), quantity));
+            myCart.add(new Cart(productRepository.getOne(id), quantity));
         } else {
             int index = isExistItem(id, myCart);
             if (index == -1) {
-                myCart.add(new Cart(productRepository.findOne(id), quantity));
+                myCart.add(new Cart(productRepository.getOne(id), quantity));
             } else {
                 int amount = myCart.get(index).getQuantity();
                 myCart.get(index).setQuantity(quantity + amount);
