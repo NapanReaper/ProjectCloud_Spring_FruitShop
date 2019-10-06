@@ -15,7 +15,6 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,7 +45,6 @@ public class ShoppingController {
             }
         }
         return -1;
-
     }
 
     @RequestMapping(value = "/order", method = RequestMethod.GET)
@@ -67,7 +65,6 @@ public class ShoppingController {
                 if (amount == 1 && quantity == -1) {
                     myCart.remove(index);
                 }
-
             }
         }
         session.setAttribute("cart", myCart);
@@ -125,9 +122,7 @@ public class ShoppingController {
     public String remove(@RequestParam int id,
             HttpSession session) {
         List<Cart> myCart = (List<Cart>) session.getAttribute("cart");
-
         int index = isExistItem(id, myCart);
-
         myCart.remove(index);
         session.setAttribute("cart", myCart);
         return "redirect:index";

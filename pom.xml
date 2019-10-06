@@ -13,15 +13,6 @@
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <springframework.version>4.3.0.RELEASE</springframework.version>
-        <mysql.connector.version>5.1.31</mysql.connector.version>
-        <joda-time.version>2.3</joda-time.version>
-        <testng.version>6.9.4</testng.version>
-        <mockito.version>1.10.19</mockito.version>
-        <h2.version>1.4.187</h2.version>
-        <dbunit.version>2.2</dbunit.version>
-        <sakai.version>11.1</sakai.version>
-        <org.json.version>20160212</org.json.version>
-        <spring-data-mongodb.version>1.5.2.RELEASE</spring-data-mongodb.version>
     </properties>
     
     <dependencies>
@@ -104,20 +95,6 @@
             <version>1.0.0.GA</version>
         </dependency> 
         
-        <!--Joda time-->
-        <dependency>
-            <groupId>joda-time</groupId>
-            <artifactId>joda-time</artifactId>
-            <version>${joda-time.version}</version>
-        </dependency> 
-        
-        <!--To Map Joda time with database type-->
-        <dependency>
-            <groupId>org.jadira.usertype</groupId>
-            <artifactId>usertype.core</artifactId>
-            <version>3.0.0.CR1</version>
-        </dependency> 
-        
         <!--Servlet + JSTL-->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -173,8 +150,7 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-taglibs</artifactId>
             <version>3.1.3.RELEASE</version>
-        </dependency>
-            
+        </dependency>       
     </dependencies>
 
     <build>
