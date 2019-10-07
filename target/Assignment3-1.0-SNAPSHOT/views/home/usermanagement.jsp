@@ -11,28 +11,29 @@
 
                 <div class="row">
                     <div class="col-md-3">
-                        <div class="lead"><a href="../add-user" class="btn btn-outline-info">Thêm User</a></div>
-
+                        <div class="lead">
+                            <a href="${pageContext.request.contextPath}/add-user" 
+                           class="btn btn-outline-info">Thêm User</a>
+                        </div>
                     </div>
-
-                    <div class="col-md-9">
-                        <!-- Search Filter -->
-                        <div class="row">
-                            <div>
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Username</th>
-                                            <th scope="col">Email</th>
-                                            <th scope="col">Phone</th>
-                                            <th scope="col">Birthday</th>
-                                            <th scope="col">Status</th>
-                                            <th scope="col">Option</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <s:if test="listuser.size() > 0">
+                <div class="col-md-9">
+                    <!-- Search Filter -->
+                    <div class="row">
+                        <div>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Username</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Phone</th>
+                                        <th scope="col">Birthday</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Option</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <s:if test="listuser.size() > 0">
                                     <c:forEach var="row" items="${listuser}">
                                         <tr>
                                             <th scope="row">${row.user_id.user_id}</th>
@@ -47,7 +48,7 @@
                                                 <td>Banned</td>
                                             </c:if>
                                             <td>
-                                                <div class="inner"><a href="../edit-user?user_id=${row.user_id.user_id}" class="btn btn-info">Edit</a> </div>                       
+                                                <div class="inner"><a href="${pageContext.request.contextPath}/edit-user?user_id=${row.user_id.user_id}" class="btn btn-info">Edit</a> </div>                       
                                                 <div class="inner">
                                                     <c:if test="${row.user_id.enabled == 1}">
                                                         <button class="btn btn-danger" onclick="removeUser(${row.user_id.user_id})" style="margin-left: 10px;">Ban</button>
@@ -86,7 +87,7 @@
             });
         }
     }
-    
+
     function unbanUser(user_id) {
         var c = confirm("Are you sure to unban this user");
         if (c) {

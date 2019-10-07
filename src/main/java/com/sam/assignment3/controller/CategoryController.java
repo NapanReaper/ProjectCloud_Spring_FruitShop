@@ -78,12 +78,12 @@ public class CategoryController {
 
     @RequestMapping(value = "/details", method = RequestMethod.GET)
     public ModelAndView details(@RequestParam(value = "id", required = false) int id) throws SQLException {
-        return new ModelAndView("/cate/details", "product", categoryRepository.getOne(id));
+        return new ModelAndView("/cate/details", "product", categoryRepository.findOne(id));
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public ModelAndView edit(@RequestParam(value = "id", required = false) int id) throws SQLException {
-        return new ModelAndView("/cate/edit", "product", categoryRepository.getOne(id));
+        return new ModelAndView("/cate/edit", "product", categoryRepository.findOne(id));
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
@@ -104,7 +104,7 @@ public class CategoryController {
             model.addAttribute("error", "Product in use");
             return "redirect:../home/index";
         }
-        categoryRepository.delete(categoryRepository.getOne(id));
+        categoryRepository.delete(id);
         return "redirect:../home/index";
     }
 }

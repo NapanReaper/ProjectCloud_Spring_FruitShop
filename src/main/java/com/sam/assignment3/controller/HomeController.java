@@ -10,7 +10,6 @@ import com.sam.assignment3.entity.Product;
 import com.sam.assignment3.repository.CategoryRepository;
 import com.sam.assignment3.repository.ProductRepository;
 import com.sam.assignment3.repository.RoleRepository;
-import com.sam.assignment3.repository.UserRepository;
 import java.sql.SQLException;
 import java.util.List;
 import javax.servlet.ServletContext;
@@ -36,8 +35,6 @@ public class HomeController {
     private ProductRepository productRepository;
     @Autowired
     private CategoryRepository categoryRepository;
-    @Autowired
-    private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
@@ -65,7 +62,7 @@ public class HomeController {
         model.put("id", cateId);
         model.put("pagenumber", pageable.getPageNumber() + 1);
         model.put("listCate", categoryRepository.findAll());
-        model.put("categoryId", categoryRepository.getOne(cateId));
+        model.put("categoryId", categoryRepository.findOne(cateId));
         model.addAttribute("product", new Category());
         System.out.println(cateId);
         if (cateId > -1) {
@@ -94,7 +91,7 @@ public class HomeController {
 
     @RequestMapping(value = "/details", method = RequestMethod.GET)
     public ModelAndView details(@RequestParam(value = "id", required = false) int id) throws SQLException {
-        return new ModelAndView("/home/details", "product", productRepository.getOne(id));
+        return new ModelAndView("/home/details", "product", productRepository.findOne(id));
     }
     @RequestMapping(value = "/usermanagement", method = RequestMethod.GET)
     public ModelAndView user(ModelMap model) throws SQLException {

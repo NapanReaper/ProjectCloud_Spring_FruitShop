@@ -31,6 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class UserController {
+
     @Autowired
     UserRepository userRepository;
 
@@ -41,7 +42,7 @@ public class UserController {
     public @ResponseBody
     MessageJson removeUser(@RequestParam("user_id") Integer id) {
         MessageJson m = new MessageJson("Ban user thất bại", false);
-        User user = userRepository.getOne(id);
+        User user = userRepository.findOne(id);
         try {
             user.setEnabled(0);
             userRepository.save(user);
@@ -57,7 +58,7 @@ public class UserController {
     public @ResponseBody
     MessageJson unbanUser(@RequestParam("user_id") Integer id) {
         MessageJson m = new MessageJson("Unban user thất bại", false);
-        User user = userRepository.getOne(id);
+        User user = userRepository.findOne(id);
         try {
             user.setEnabled(1);
             userRepository.save(user);
@@ -79,12 +80,12 @@ public class UserController {
     public ModelAndView create() throws SQLException {
         return new ModelAndView("/home/add-user", "user", new User());
     }
-    
+
     @RequestMapping(value = "/edit-user", method = RequestMethod.GET)
     public ModelAndView editUser(@RequestParam(value = "user_id") Integer id) throws SQLException {
-        return new ModelAndView("/home/edit-user", "user", userRepository.getOne(id));
+        return new ModelAndView("/home/edit-user", "user", userRepository.findOne(id));
     }
-    
+
     @RequestMapping(value = "/edit-user", method = RequestMethod.POST)
     public String edit(@Valid @ModelAttribute("user") User user,
             BindingResult result, ModelMap mm) throws SQLException {
