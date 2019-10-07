@@ -54,28 +54,13 @@
                             <hr>
                             <!-- END PRODUCT -->  
                         </c:forEach>
-<!--                        <div class="pull-right">
-                            <a href="./payment?id=${row.id}" class="btn btn-outline-secondary pull-right">
-                                Payment
-                            </a>
-                        </div>-->
                     </div>
                     <div class="card-footer">
-                        <!--                        <div class="coupon col-md-5 col-sm-5 no-padding-left pull-left">
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <input type="text" class="form-control" placeholder="cupone code">
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <input type="submit" class="btn btn-default" value="Use cupone">
-                                                        </div>
-                                                    </div>
-                                                </div>-->
                         <div class="pull-right" style="margin: 10px">
                            <sec:authentication var="principal" property="principal"/>
                             <a href="./payment?user=${principal.username}" class="btn btn-success pull-right">Checkout</a>
                             <div class="pull-right" style="margin: 5px">
-                                Total price: <b>${total}€</b>
+                                Total price: <b>${total}</b>
                             </div>
                         </div>
                     </div>
