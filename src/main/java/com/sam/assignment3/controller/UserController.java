@@ -41,12 +41,12 @@ public class UserController {
     @RequestMapping(value = "/removeUser", method = RequestMethod.POST)
     public @ResponseBody
     MessageJson removeUser(@RequestParam("user_id") Integer id) {
-        MessageJson m = new MessageJson("Ban user thất bại", false);
+        MessageJson m = new MessageJson("Ban failed", false);
         User user = userRepository.findOne(id);
         try {
             user.setEnabled(0);
             userRepository.save(user);
-            m.setMessage("Ban user thành công");
+            m.setMessage("Ban success");
             m.setStatus(Boolean.TRUE);
 
         } catch (Exception e) {
@@ -57,12 +57,12 @@ public class UserController {
     @RequestMapping(value = "/unbanUser", method = RequestMethod.POST)
     public @ResponseBody
     MessageJson unbanUser(@RequestParam("user_id") Integer id) {
-        MessageJson m = new MessageJson("Unban user thất bại", false);
+        MessageJson m = new MessageJson("Unban failed", false);
         User user = userRepository.findOne(id);
         try {
             user.setEnabled(1);
             userRepository.save(user);
-            m.setMessage("Unban user thành công");
+            m.setMessage("Unban success");
             m.setStatus(Boolean.TRUE);
 
         } catch (Exception e) {

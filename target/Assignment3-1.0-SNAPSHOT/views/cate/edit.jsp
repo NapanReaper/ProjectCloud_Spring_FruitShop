@@ -6,25 +6,26 @@
 
         <body>
         <jsp:include page="../nav.jsp"></jsp:include>
-            <h1>Edit a product</h1>
-        <form:form method="post" action="./edit" modelAttribute="product">
-
-            <div class="col-md-9">
-                <table>
-                    <tr>
-                        <td><form:label path="id">ID</form:label></td>
-                        <td><form:input path="id" readonly="true"/></td>
-                    </tr>
-                    <tr>
-                        <td><form:label path="name">Name</form:label></td>
-                        <td><form:input path="name"/><form:errors path="name" cssStyle="color:red;display:block"/></td>
-                    </tr>
-
-                </table>
-                <input type="submit" style="width: 150px; margin-left: 50px; margin-top: 20px; " class="btn btn-outline-info btn-block" value="Xác Nhận">
-
-            </form:form>
-                <a href="${pageContext.request.contextPath}/home/index" style="width: 150px; margin-left: 50px; margin-top: 20px; " class="btn btn-outline-info btn-block">Hủy</a>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Edit category</h1>
+                    <form:form method="post" action="./edit" modelAttribute="product">
+                        <table>
+                            <tr>
+                                <td></td>
+                                <td><form:input path="id" readonly="true" type="hidden"/></td>
+                            </tr>
+                            <tr>
+                                <td><form:label path="name">Name</form:label></td>
+                                <td><form:input path="name"/><form:errors path="name" cssStyle="color:red;display:block"/></td>
+                            </tr>
+                        </table>
+                        <input type="submit" style="margin-left: 10px;" class="btn btn-info" value="Save">
+                        <a href="${pageContext.request.contextPath}/home/index" class="btn btn-secondary">Cancel</a>
+                    </form:form>
+                </div>
+            </div>
         </div>
     </body>
 </html>

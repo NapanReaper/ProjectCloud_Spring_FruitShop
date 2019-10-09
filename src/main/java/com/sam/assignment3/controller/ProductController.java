@@ -6,6 +6,7 @@
 package com.sam.assignment3.controller;
 
 import com.sam.assignment3.entity.Category;
+import com.sam.assignment3.entity.MessageJson;
 import com.sam.assignment3.entity.Product;
 import com.sam.assignment3.repository.CategoryRepository;
 import com.sam.assignment3.repository.OrderDetailRepository;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -142,11 +144,25 @@ public class ProductController {
     public String delete(@RequestParam(value = "id", required = false) int id, ModelMap model) throws SQLException {
         if (!orderDetailRepository.findProductById(id).isEmpty()) {
             model.put("listCate", categoryRepository.findAll());
-            model.put("error", "Sản phẩm đang được sử dụng");
-            model.addAttribute("error", "Product in use");
+            model.put("error", "Product in use");
             return "redirect:home/index";
         }
+        
         productRepository.delete(id);
         return "redirect:home/index";
+       
+    }
+    
+    @RequestMapping(value = "/deleteProduct", method = RequestMethod.DELETE)
+    public @ResponseBody
+    MessageJson deleteProduct(@RequestParam(value = "product_id", required = false) Integer id) {
+        MessageJson m = new MessageJson("This product is in use", false);
+        System.out.println("delete id: "+id);
+        if ( orderDetailRepository.findProductById(id).isEmpty()) {
+            productRepository.delete(id);
+            m.setMessage("Delete success");
+            m.setStatus(Boolean.TRUE);
+        }        
+        return m;
     }
 }
