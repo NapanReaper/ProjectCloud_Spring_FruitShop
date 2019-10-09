@@ -13,26 +13,22 @@
 
                 <div class="row">
 
-                    <div class="col-md-3">
+<%--                    <div class="col-md-3">
                         <p class="lead">Shop Name</p>
                         <div class="list-group">
                         <c:forEach items="${listCate}" var="item">
                             <a href="./index?keyword=&id=${item.id}" class="list-group-item">${item.name}</a>
                         </c:forEach>
                     </div>
-                </div>
+                </div>--%>
 
                 <div class="col-md-9">
 
                     <div class="thumbnail">
                         <form:form method="post" action="./create" modelAttribute="product" enctype="multipart/form-data">
-                            <img class="img-responsive" src="/image/${product.thumnail}" alt="">
+                            <img src="${product.thumnail}" alt="" style="width: 110px !important; height: 100px">
                         <div class="caption-full">
                             <table>
-                                <tr>
-                                    <td><form:label path="id">ID</form:label></td>
-                                    <td><form:input path="id" readonly="true"/></td>
-                                </tr>
                                 <tr>
                                     <td><form:label path="name">Name</form:label></td>
                                     <td><form:input path="name"/><form:errors path="name" cssStyle="color:red;display:block"/></td>
@@ -54,7 +50,7 @@
                                     <td><form:input path="thumnail"/></td>
                                 </tr>
                                 <tr>
-                                    <td><form:label path="category.id">Danh mục</form:label><br/></td>
+                                    <td><form:label path="category.id">Category</form:label><br/></td>
                                     <td><form:select path="category.id">
                                     <option value="-1">Select a type</option>
                                     <c:forEach items="${listCate}" var="item">
@@ -75,15 +71,15 @@
                                 </form:select></td>
                                 </tr>
                                 <tr>
-                                    <td>upload image :</td>
+                                    <td>Upload image :</td>
                                     <td><input type="file" name="file"><br/></td>
                                 </tr>
                             
                             </table>
-                            <input type="submit" class="btn btn-outline-info btn-block" value="Xác Nhận">
+                            <input type="submit" class="btn btn-info" value="Save">
                           
                         </form:form>
-                            <a href="../home/index" class="btn btn-outline-info btn-block">Hủy</a>
+                            <a href="${pageContext.request.contextPath}/home/index" class="btn btn-secondary">Cancel</a>
                         </div>
 
                     </div>

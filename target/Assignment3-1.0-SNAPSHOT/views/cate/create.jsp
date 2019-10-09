@@ -6,25 +6,23 @@
 
         <body>
         <jsp:include page="../nav.jsp"></jsp:include>
-            <h1>Create category</h1>
-        <form:form method="post" action="./create" modelAttribute="product">
-
-            <div class="col-md-9">
-                <table>
-                    <tr>
-                        <td><form:label path="id">ID</form:label></td>
-                        <td><form:input path="id" readonly="true"/></td>
-                    </tr>
-                    <tr>
-                        <td><form:label path="name">Name</form:label></td>
-                        <td><form:input path="name"/><form:errors path="name" cssStyle="color:red;display:block"/></td>
-                    </tr>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Create category</h1>
+                    <form:form method="post" action="./create" modelAttribute="product">
+                        <table>
+                            <tr>
+                                <td><form:label path="name">Name</form:label></td>
+                                <td><form:input path="name"/><form:errors path="name" cssStyle="color:red;display:block"/></td>
+                            </tr>
+                        </table>
+                        <input style="margin-right: 10px; " type="submit" class="btn btn-info" value="Save">
+                        <a href="../home/index" class="btn btn-secondary">Cancel</a>
+                    </form:form>
                     
-                </table>
-                    <input style="width: 150px; margin-left: 50px; margin-top: 20px; " type="submit" class="btn btn-outline-info btn-block" value="Xác Nhận">
-
-            </form:form>
-            <a style="width: 150px; margin-left: 50px;" href="../home/index" class="btn btn-outline-info btn-block">Hủy</a>
+                </div>
+            </div>
         </div>
     </body>
 </html>
