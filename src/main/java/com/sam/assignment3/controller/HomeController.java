@@ -31,6 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value = "/home")
 public class HomeController {
+
     @Autowired
     private ProductRepository productRepository;
     @Autowired
@@ -38,10 +39,10 @@ public class HomeController {
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
-            
+
     ServletContext servletContext;
-    
-    @RequestMapping(value = {"/index","/",""}, method = RequestMethod.GET)
+
+    @RequestMapping(value = {"/index", "/", ""}, method = RequestMethod.GET)
     public ModelAndView index(@RequestParam(value = "page", required = false) Integer page,
             @RequestParam(value = "keyword", required = false) String keyword,
             @RequestParam(value = "id", required = false) Integer cateId,
@@ -90,12 +91,13 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/details", method = RequestMethod.GET)
-    public ModelAndView details(@RequestParam(value = "id", required = false) int id) throws SQLException {
+    public ModelAndView details(@RequestParam(value = "id", required = false) Long id) throws SQLException {
         return new ModelAndView("/home/details", "product", productRepository.findOne(id));
     }
+
     @RequestMapping(value = "/usermanagement", method = RequestMethod.GET)
     public ModelAndView user(ModelMap model) throws SQLException {
-       
-        return new ModelAndView("/home/usermanagement","listuser",roleRepository.getAllUserRole());
+
+        return new ModelAndView("/home/usermanagement", "listuser", roleRepository.getAllUserRole());
     }
 }

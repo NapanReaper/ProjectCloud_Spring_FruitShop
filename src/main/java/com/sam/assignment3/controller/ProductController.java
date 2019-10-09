@@ -35,6 +35,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value = "")
 public class ProductController {
+
     @Autowired
     private ProductRepository productRepository;
     @Autowired
@@ -110,19 +111,19 @@ public class ProductController {
             model.put("errorCate", "Please choice");
             return "/product/create";
         }
-       
+
         productRepository.save(product);
         return "redirect:home/index";
     }
 
     @RequestMapping(value = "/details", method = RequestMethod.GET)
-    public ModelAndView details(@RequestParam(value = "id", required = false) int id, ModelMap model) throws SQLException {
+    public ModelAndView details(@RequestParam(value = "id", required = false) Long id, ModelMap model) throws SQLException {
         model.put("listCate", categoryRepository.findAll());
         return new ModelAndView("/product/details", "product", productRepository.findOne(id));
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public ModelAndView edit(@RequestParam(value = "id", required = false) int id, ModelMap model) throws SQLException {
+    public ModelAndView edit(@RequestParam(value = "id", required = false) Long id, ModelMap model) throws SQLException {
         model.put("listCate", categoryRepository.findAll());
         return new ModelAndView("/product/edit", "product", productRepository.findOne(id));
     }
@@ -139,10 +140,10 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String delete(@RequestParam(value = "id", required = false) int id, ModelMap model) throws SQLException {
+    public String delete(@RequestParam(value = "id", required = false) Long id, ModelMap model) throws SQLException {
         if (!orderDetailRepository.findProductById(id).isEmpty()) {
             model.put("listCate", categoryRepository.findAll());
-            model.put("error", "Sản phẩm đang được sử dụng");
+            model.put("error", "Product in use");
             model.addAttribute("error", "Product in use");
             return "redirect:home/index";
         }

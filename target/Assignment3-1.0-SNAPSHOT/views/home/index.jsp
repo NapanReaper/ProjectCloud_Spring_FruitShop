@@ -52,7 +52,7 @@
                                     </form:select>
                                 </div>
                                 <div class="col-md-2 float-left">
-                                    <input type="submit" value="Tìm kiếm" class="btn btn-outline-primary btn-block"/>
+                                    <input type="submit" value="Search" class="btn btn-outline-primary btn-block"/>
                                 </div> 
                             </form:form>
                         </div>

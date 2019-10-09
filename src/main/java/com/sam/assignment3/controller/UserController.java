@@ -40,13 +40,13 @@ public class UserController {
 
     @RequestMapping(value = "/removeUser", method = RequestMethod.POST)
     public @ResponseBody
-    MessageJson removeUser(@RequestParam("user_id") Integer id) {
-        MessageJson m = new MessageJson("Ban user thất bại", false);
+    MessageJson removeUser(@RequestParam("user_id") Long id) {
+        MessageJson m = new MessageJson("Ban user fail", false);
         User user = userRepository.findOne(id);
         try {
             user.setEnabled(0);
             userRepository.save(user);
-            m.setMessage("Ban user thành công");
+            m.setMessage("Ban user done");
             m.setStatus(Boolean.TRUE);
 
         } catch (Exception e) {
@@ -56,13 +56,13 @@ public class UserController {
 
     @RequestMapping(value = "/unbanUser", method = RequestMethod.POST)
     public @ResponseBody
-    MessageJson unbanUser(@RequestParam("user_id") Integer id) {
-        MessageJson m = new MessageJson("Unban user thất bại", false);
+    MessageJson unbanUser(@RequestParam("user_id") Long id) {
+        MessageJson m = new MessageJson("Unban user fail", false);
         User user = userRepository.findOne(id);
         try {
             user.setEnabled(1);
             userRepository.save(user);
-            m.setMessage("Unban user thành công");
+            m.setMessage("Unban user done");
             m.setStatus(Boolean.TRUE);
 
         } catch (Exception e) {
@@ -82,7 +82,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/edit-user", method = RequestMethod.GET)
-    public ModelAndView editUser(@RequestParam(value = "user_id") Integer id) throws SQLException {
+    public ModelAndView editUser(@RequestParam(value = "user_id") Long id) throws SQLException {
         return new ModelAndView("/home/edit-user", "user", userRepository.findOne(id));
     }
 
@@ -102,11 +102,11 @@ public class UserController {
         try {
             user.setEnabled(1);
             Date date = new Date(System.currentTimeMillis());
-            user.setBirthdate(date);
+            user.setBirthday(date);
             List<User> listUser = userRepository.findAll();
             for (User user1 : listUser) {
                 if (user.getUsername().equalsIgnoreCase(user1.getUsername())) {
-                    model.put("error", "User is exist !");
+                    model.put("error", "Username existed!");
                     return "/home/add-user";
                 }
             }

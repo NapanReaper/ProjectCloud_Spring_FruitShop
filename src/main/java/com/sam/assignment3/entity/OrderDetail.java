@@ -5,6 +5,7 @@
  */
 package com.sam.assignment3.entity;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,42 +15,42 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "orderdetails")
-public class OrderDetail {
+public class OrderDetail implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
-    
-    @ManyToOne
-    @JoinColumn(name="productId")
+    private Long id;
+    @ManyToOne()
+    @JoinColumn(name = "id_oderMaster")
+    private Order orderMaster;
+    @ManyToOne()
+    @JoinColumn(name = "id_product")
     private Product product;
-    
-    @ManyToOne
-    @JoinColumn(name="orderId")
-    private Order order;
-    
+    @Column(name = "price")
+    private float price;
     @Column(name = "quantity")
-    private int quantity;
-    
+    private Integer quantity;
+
     public OrderDetail() {
     }
 
-    public OrderDetail(Product product, Order order, int quantity) {
-        this.product = product;
-        this.order = order;
-        this.quantity = quantity;
-    }
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public Order getOrderMaster() {
+        return orderMaster;
+    }
+
+    public void setOrderMaster(Order orderMaster) {
+        this.orderMaster = orderMaster;
     }
 
     public Product getProduct() {
@@ -60,22 +61,20 @@ public class OrderDetail {
         this.product = product;
     }
 
-    public Order getOrder() {
-        return order;
+    public float getPrice() {
+        return price;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setPrice(float price) {
+        this.price = price;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
-    
-    
 }

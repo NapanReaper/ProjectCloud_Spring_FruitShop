@@ -12,8 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface RoleRepository extends JpaRepository<Role, Integer> {
 
-    @Query(
-            value = "SELECT * FROM user_roles r WHERE r.ROLE = 'ROLE_USER'",
+    @Query(value = "SELECT * FROM user_roles r WHERE r.ROLE = 'ROLE_USER'",
             nativeQuery = true)
     public List<Role> getAllUserRole();
 }
