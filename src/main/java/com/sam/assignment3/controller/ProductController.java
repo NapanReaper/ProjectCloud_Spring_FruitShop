@@ -37,6 +37,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value = "")
 public class ProductController {
+
     @Autowired
     private ProductRepository productRepository;
     @Autowired
@@ -112,19 +113,19 @@ public class ProductController {
             model.put("errorCate", "Please choice");
             return "/product/create";
         }
-       
+
         productRepository.save(product);
         return "redirect:home/index";
     }
 
     @RequestMapping(value = "/details", method = RequestMethod.GET)
-    public ModelAndView details(@RequestParam(value = "id", required = false) int id, ModelMap model) throws SQLException {
+    public ModelAndView details(@RequestParam(value = "id", required = false) Long id, ModelMap model) throws SQLException {
         model.put("listCate", categoryRepository.findAll());
         return new ModelAndView("/product/details", "product", productRepository.findOne(id));
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public ModelAndView edit(@RequestParam(value = "id", required = false) int id, ModelMap model) throws SQLException {
+    public ModelAndView edit(@RequestParam(value = "id", required = false) Long id, ModelMap model) throws SQLException {
         model.put("listCate", categoryRepository.findAll());
         return new ModelAndView("/product/edit", "product", productRepository.findOne(id));
     }
@@ -141,10 +142,11 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String delete(@RequestParam(value = "id", required = false) int id, ModelMap model) throws SQLException {
+    public String delete(@RequestParam(value = "id", required = false) Long id, ModelMap model) throws SQLException {
         if (!orderDetailRepository.findProductById(id).isEmpty()) {
             model.put("listCate", categoryRepository.findAll());
             model.put("error", "Product in use");
+            model.addAttribute("error", "Product in use");
             return "redirect:home/index";
         }
         
@@ -155,7 +157,7 @@ public class ProductController {
     
     @RequestMapping(value = "/deleteProduct", method = RequestMethod.DELETE)
     public @ResponseBody
-    MessageJson deleteProduct(@RequestParam(value = "product_id", required = false) Integer id) {
+    MessageJson deleteProduct(@RequestParam(value = "product_id", required = false) Long id) {
         MessageJson m = new MessageJson("This product is in use", false);
         System.out.println("delete id: "+id);
         if ( orderDetailRepository.findProductById(id).isEmpty()) {

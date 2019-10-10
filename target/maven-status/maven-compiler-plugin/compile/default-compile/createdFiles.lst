@@ -2,6 +2,7 @@ com\sam\assignment3\controller\ShoppingController.class
 com\sam\assignment3\entity\OrderDetail.class
 com\sam\assignment3\entity\Role.class
 com\sam\assignment3\entity\User.class
+com\sam\assignment3\entity\Cart2.class
 com\sam\assignment3\entity\Category.class
 com\sam\assignment3\entity\MessageJson.class
 com\sam\assignment3\repository\RoleRepository.class

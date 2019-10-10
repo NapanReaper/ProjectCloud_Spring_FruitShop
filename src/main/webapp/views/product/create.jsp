@@ -7,10 +7,7 @@
     <jsp:include page="../header.jsp"></jsp:include>
         <body>
         <jsp:include page="../nav.jsp"></jsp:include>
-
-
             <div class="container">
-
                 <div class="row">
 
 <%--                    <div class="col-md-3">
@@ -66,15 +63,10 @@
                                                 </option>
                                             </c:otherwise>
                                         </c:choose>
-
                                     </c:forEach>
-                                </form:select></td>
+                                </form:select>
+                                </td>
                                 </tr>
-                                <tr>
-                                    <td>Upload image :</td>
-                                    <td><input type="file" name="file"><br/></td>
-                                </tr>
-                            
                             </table>
                             <input type="submit" class="btn btn-info" value="Save">
                           
@@ -83,11 +75,9 @@
                         </div>
 
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-<jsp:include page="../footer.jsp"></jsp:include>
+        <!--</div>-->
+        <jsp:include page="../footer.jsp"></jsp:include>
 </html>

@@ -23,7 +23,7 @@
                 </div>
                 <div class="col-md-9">
                     <div class="thumbnail">
-                        <img class="img-responsive" src="/image/${product.thumnail}" alt="Preview not available">
+                        <img class="img-responsive" src="${product.thumnail}" alt="Preview not available">
                         <div class="caption-full">
                             <h4 class="float-right">${product.price} $</h4>
                             <h4><b>${product.name}</b>

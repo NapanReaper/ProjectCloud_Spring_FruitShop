@@ -38,11 +38,11 @@ public class AuthenticationController {
         String message="";
         System.out.println("authfailed " + authfailed);
         if(authfailed != null){
-            message = "invalid username of password, try again !";
+            message = "Invalid username or password, try again!";
         }else if(logout != null){
-            message = "Logged Out seccessfully, login again to continue !";
+            message = "Logged Out seccessfully!";
         }else if(denied != null){
-            message = "Access denied for this user !";
+            message = "Access denied for this user!";
         }
         return new ModelAndView("/auth/login","message",message);
     }

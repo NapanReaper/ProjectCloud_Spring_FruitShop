@@ -73,15 +73,9 @@
 
                                     </c:forEach>
                                 </form:select></td>
-                                </tr>
-                                <tr>
-                                    <td>Upload image :</td>
-                                    <td><input type="file" name="file"><br/></td>
-                                </tr>
-                            
+                                </tr>                                
                             </table>
                             <input type="submit" class="btn btn-info" value="Save">
-                          
                         </form:form>
                             <a href="${pageContext.request.contextPath}/home/index" class="btn btn-secondary">Cancel</a>
                         </div>
