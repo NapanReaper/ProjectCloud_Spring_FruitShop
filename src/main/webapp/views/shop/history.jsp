@@ -19,21 +19,23 @@
                         <div class="row">
                             <div class="col">
                                 <strong>Order's ${row.id}</strong>
-                            </div>
-                            <div class="col">
                                 <small>${row.dateCreate}</small>
                             </div>
                         </div>
                         <c:forEach var="item" items="${row.listOrderDetail}">
-                            <div class="row">
-                                <div class="col">
+                            <div class="row align-items-center">
+                                <div class="col-2">
+                                    <img alt="test" width="100px" height="100px"
+                                         src="${item.product.thumnail}"> 
+                                </div>
+                                <div class="col-3">
                                     <p>Product name: ${item.product.name}</p>
                                 </div>
-                                <div class="col">
-                                    <p>Price: ${item.price}</p>
-                                </div>
-                                <div class="col">
+                                <div class="col-3">
                                     <p>Quantity: ${item.quantity}</p>
+                                </div>
+                                <div class="col-4">
+                                    <p>Quantity: ${item.price}</p>
                                 </div>
                             </div>
                         </c:forEach>
