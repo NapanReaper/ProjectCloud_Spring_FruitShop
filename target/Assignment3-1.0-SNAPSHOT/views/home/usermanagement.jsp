@@ -40,7 +40,7 @@
                                             <td>${row.user_id.username}</td>
                                             <td>${row.user_id.email}</td>
                                             <td>${row.user_id.phone}</td>
-                                            <td>${row.user_id.birthdate}</td>
+                                            <td>${row.user_id.birthday}</td>
                                             <c:if test="${row.user_id.enabled == 1}">
                                                 <td>Active</td>
                                             </c:if>
