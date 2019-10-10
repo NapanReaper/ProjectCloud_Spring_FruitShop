@@ -12,23 +12,36 @@
                         <a href="../index" class="btn btn-outline-info btn-sm pull-right">Continue shopping</a>
                         <div class="clearfix"></div>
                     </div>
-                <%--<c:if test="${sessionScope.history != null}">--%>     
+                <%--<c:if test="${sessionScope.history != null}">--%>
+
                 <c:if test="${history != null}" var="testHistory">
-                    <div>
-                        <c:forEach var="row" items="${history}">
-                            <strong>Order's ${row.id}</strong>
-                            <small>${row.dateCreate}</small>
-                            <c:forEach var="item" items="${row.listOrderDetail}">
-                                <p>Product name: ${item.product.name}</p>
-                                <p>Price: ${item.price}</p>
-                                <p>Quantity: ${item.quantity}</p>
-                            </c:forEach>
+                    <c:forEach var="row" items="${history}">
+                        <div class="row">
+                            <div class="col">
+                                <strong>Order's ${row.id}</strong>
+                            </div>
+                            <div class="col">
+                                <small>${row.dateCreate}</small>
+                            </div>
+                        </div>
+                        <c:forEach var="item" items="${row.listOrderDetail}">
+                            <div class="row">
+                                <div class="col">
+                                    <p>Product name: ${item.product.name}</p>
+                                </div>
+                                <div class="col">
+                                    <p>Price: ${item.price}</p>
+                                </div>
+                                <div class="col">
+                                    <p>Quantity: ${item.quantity}</p>
+                                </div>
+                            </div>
                         </c:forEach>
-                        <!-- END PRODUCT -->  
-                    </div>
-                </div>
+                    </c:forEach>
+                    <!-- END PRODUCT -->  
+                </c:if>
             </div>
-        </c:if>
+        </div>
         <c:if test="${not testHistory}">
             Buy something!
         </c:if>
