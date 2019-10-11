@@ -15,12 +15,13 @@
                 <%--<c:if test="${sessionScope.history != null}">--%>
 
                 <c:if test="${history != null}" var="testHistory">
-                    <c:forEach var="row" items="${history}">
+                    <c:forEach var="row" items="${history}" varStatus="counter" >
                         <div class="row">
                             <div class="col">
                                 <strong>Order's ${row.id}</strong>
                                 <small>${row.dateCreate}</small>
                             </div>
+                            <div id='"total"+${counter.count}'>Total</div>
                         </div>
                         <c:forEach var="item" items="${row.listOrderDetail}">
                             <div class="row align-items-center">
