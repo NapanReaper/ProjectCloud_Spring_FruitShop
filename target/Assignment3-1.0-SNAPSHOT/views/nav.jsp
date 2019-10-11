@@ -7,9 +7,9 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
         <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="${pageContext.request.contextPath}/index">Fruit Shop</a>
-                </div>
+            <div class="navbar-header">
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/index">Fruit Shop</a>
+            </div>
             <ul class="nav navbar-nav mr-auto">
                 <li style="margin-right: 10px">
                     <sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -24,6 +24,12 @@
                             Admin Page
                         </a>
                     </sec:authorize>
+                    <sec:authorize access="hasRole('ROLE_USER')">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/shop/index">
+                            <span class="glyphicon glyphicon-user"></span>
+                            Cart
+                        </a>
+                    </sec:authorize>
                 </li>
                 <li style="margin-right: 10px">
                     <sec:authentication var="principal" property="principal"/>
@@ -32,16 +38,17 @@
                             History
                         </a>
                     </sec:authorize>
-                     <sec:authorize access="hasRole('ROLE_ADMIN')">
+                    <sec:authorize access="hasRole('ROLE_ADMIN')">
                         <a class="nav-link" href="${pageContext.request.contextPath}/shop/historyAdmin"><span class="glyphicon glyphicon-user"></span>
                             History
                         </a>
                     </sec:authorize>
+
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-
                 <li style="margin-right: 10px">
+
                     <sec:authorize access="isAuthenticated()">
                         <sec:authentication var="principal" property="principal"/>
                         <a class="nav-link" href="#"><span class="glyphicon glyphicon-user"></span>
