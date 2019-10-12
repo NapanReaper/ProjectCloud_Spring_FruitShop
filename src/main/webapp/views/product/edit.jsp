@@ -43,11 +43,17 @@
                                 </tr>
                                 <tr>
                                     <td><form:label path="price">Price</form:label></td>
-                                    <td><form:input path="price"/></td>
+                                    <td>
+                                        <form:input path="price" type="number" step="0.01"/>
+                                        <form:errors path="price" cssStyle="color:red;display:block"/>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td><form:label path="amount">Amount</form:label></td>
-                                    <td><form:input path="amount"/></td>
+                                    <td>
+                                        <form:input path="amount" type="number"/>
+                                        <form:errors path="amount" cssStyle="color:red;display:block"/>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td><form:label path="thumnail">Thumbnail</form:label></td>
@@ -55,24 +61,27 @@
                                 </tr>
                                 <tr>
                                     <td><form:label path="category.id">Category</form:label><br/></td>
-                                    <td><form:select path="category.id">
-                                    <option value="-1">Select a type</option>
-                                    <c:forEach items="${listCate}" var="item">
-                                        <c:choose>
-                                            <c:when test="${item.id == product.category.id}">
-                                                <option value="${item.id}" selected="true">
-                                                    ${item.name}
-                                                </option>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <option value="${item.id}">
-                                                    ${item.name}
-                                                </option>
-                                            </c:otherwise>
-                                        </c:choose>
+                                    <td>
+                                        <form:select path="category.id">
+                                            <option value="-1">Select a type</option>
+                                            <c:forEach items="${listCate}" var="item">
+                                                <c:choose>
+                                                    <c:when test="${item.id == product.category.id}">
+                                                        <option value="${item.id}" selected="true">
+                                                            ${item.name}
+                                                        </option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option value="${item.id}">
+                                                            ${item.name}
+                                                        </option>
+                                                    </c:otherwise>
+                                                </c:choose>
 
-                                    </c:forEach>
-                                </form:select></td>
+                                            </c:forEach>
+                                        </form:select>
+                                        <span style="color: red">${errorCate}</span>
+                                    </td>
                                 </tr>                                
                             </table>
                             <input type="submit" class="btn btn-info" value="Save">

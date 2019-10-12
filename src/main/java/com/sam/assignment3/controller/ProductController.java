@@ -110,7 +110,7 @@ public class ProductController {
         }
         if (product.getCategory().getId() < 0) {
             model.put("listCate", categoryRepository.findAll());
-            model.put("errorCate", "Please choice");
+            model.put("errorCate", "Please choose a category");
             return "/product/create";
         }
 
@@ -137,6 +137,12 @@ public class ProductController {
             model.put("listCate", categoryRepository.findAll());
             return "/product/edit";
         }
+        if (product.getCategory().getId() < 0) {
+            model.put("listCate", categoryRepository.findAll());
+            model.put("errorCate", "Please choose a category");
+            return "/product/edit";
+        }
+
         productRepository.save(product);
         return "redirect:home/index";
     }

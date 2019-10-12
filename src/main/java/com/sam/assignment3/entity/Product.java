@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.validation.constraints.Min;
 
 @Entity
 @Table(name = "products")
@@ -36,8 +37,10 @@ public class Product implements Serializable {
     @Column(name = "description", nullable = true)
     private String description;
     @Column(name = "price", nullable = true)
+    @Min(0)
     private float price;
     @Column(name = "amount", nullable = true)
+    @Min(0)
     private int amount;
     @Column(name = "thumnail", nullable = true)
     private String thumnail;

@@ -1,6 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
     <jsp:include page="../header.jsp"></jsp:include>
@@ -10,12 +12,12 @@
             <div class="container" id="append-body">
 
                 <div class="row">
-<%--                    <div class="col-md-3">
-                        <div class="lead">
-                            <a href="${pageContext.request.contextPath}/add-user" 
-                           class="btn btn-outline-info">Add User</a>
-                        </div>
-                    </div>--%>
+                <%--                    <div class="col-md-3">
+                                        <div class="lead">
+                                            <a href="${pageContext.request.contextPath}/add-user" 
+                                           class="btn btn-outline-info">Add User</a>
+                                        </div>
+                                    </div>--%>
                 <div class="col-md-12">
                     <table class="table table-striped">
                         <thead>
@@ -24,7 +26,7 @@
                                 <th scope="col">Username</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Phone</th>
-                                <th scope="col">Registered date</th>
+                                <th scope="col">Date of Birth</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Option</th>
                             </tr>
@@ -37,7 +39,9 @@
                                     <td>${row.user_id.username}</td>
                                     <td>${row.user_id.email}</td>
                                     <td>${row.user_id.phone}</td>
-                                    <td>${row.user_id.birthday}</td>
+                                    <td><fmt:formatDate type = "date" 
+                                                    value = "${row.user_id.birthday}" />
+                                    </td>
                                     <c:if test="${row.user_id.enabled == 1}">
                                         <td>Active</td>
                                     </c:if>
@@ -60,7 +64,7 @@
                         </s:if>
                         </tbody>
                     </table>
-                        
+
                 </div>
             </div>
     </body>
