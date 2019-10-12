@@ -57,7 +57,7 @@
                         </a>
                     </sec:authorize>
                     <sec:authorize access="!isAuthenticated()">
-                        <a style="color: #333" class="nav-link" href="${pageContext.request.contextPath}/auth/register"><span class="glyphicon glyphicon-user"></span>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/auth/register"><span class="glyphicon glyphicon-user"></span>
                             Sign up
                         </a>
                     </sec:authorize>

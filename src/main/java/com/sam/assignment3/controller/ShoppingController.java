@@ -100,7 +100,7 @@ public class ShoppingController {
             od.setProduct(cart.getProduct());
             detailRepository.save(od);
         }
-        session.removeAttribute("cart");
+        session.removeAttribute("cart");    
         return new ModelAndView("/shop/payment");
     }
 

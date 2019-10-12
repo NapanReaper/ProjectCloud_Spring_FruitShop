@@ -12,6 +12,7 @@
         <body style="background-color: yellowgreen">
         <center>
             <div style="text-align: center;margin: 30px;padding: 30px;border: 2px;height: 450px;width: 400px; background-color: #ffffff">
+                <h4><a href="../index">Home page</a></h4>
             <form:form action="${pageContext.request.contextPath}/auth/register" method="POST" modelAttribute="user" enctype="multipart/form-data">
                 <table>
                     <tr>
