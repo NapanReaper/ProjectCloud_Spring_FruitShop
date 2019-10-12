@@ -25,14 +25,26 @@
                             Admin Page
                         </a>
                     </sec:authorize>
+                    <sec:authorize access="hasRole('ROLE_USER')">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/shop/index">
+                            <span class="glyphicon glyphicon-user"></span>
+                            Cart
+                        </a>
+                    </sec:authorize>
                 </li>
                 <li style="margin-right: 10px">
                     <sec:authentication var="principal" property="principal"/>
-                    <sec:authorize access="isAuthenticated()">
+                    <sec:authorize access="hasRole('ROLE_USER')">
                         <a class="nav-link" href="${pageContext.request.contextPath}/shop/history?user=${principal.username}"><span class="glyphicon glyphicon-user"></span>
                             History
                         </a>
                     </sec:authorize>
+                    <sec:authorize access="hasRole('ROLE_ADMIN')">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/shop/historyAdmin"><span class="glyphicon glyphicon-user"></span>
+                            History
+                        </a>
+                    </sec:authorize>
+
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

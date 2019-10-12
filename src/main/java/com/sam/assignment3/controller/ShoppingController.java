@@ -112,6 +112,13 @@ public class ShoppingController {
         return new ModelAndView("/shop/history", "history", orderMaster);
     }
 
+    @RequestMapping(value = "/historyAdmin", method = RequestMethod.GET)
+    public ModelAndView history(
+            HttpSession session) {
+        List<Order> orderMaster = masterRepository.findAll();
+        return new ModelAndView("/shop/history", "history", orderMaster);
+    }
+
     private double calTotal(List<Cart2> myCart) {
         double result = 0.0;
         if (myCart != null) {
