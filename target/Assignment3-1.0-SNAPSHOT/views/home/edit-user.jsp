@@ -25,7 +25,7 @@
                     <form:form method="post" action="${pageContext.request.contextPath}/edit-user" modelAttribute="user">
                         <form:hidden path="user_id"/>
                         <form:hidden path="password"/>
-                        <form:hidden path="birthdate"/>
+                        <form:hidden path="birthday"/>
                         <form:hidden path="enabled"/>
                         <div class="form-group">
                             <label><b>Username</b></label>
