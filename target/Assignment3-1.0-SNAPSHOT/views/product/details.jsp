@@ -33,7 +33,7 @@
                     <p style="color: blue">${product.description}</p>
                     <h4>Amount: ${product.amount} </h4>
                      <sec:authorize access="!hasRole('ROLE_ADMIN')">
-                    <a href="${pageContext.request.contextPath}/shop/order?productId=${product.id}&quantity=1" class="btn btn-outline-success btn-block">Buy Now</a>
+                    <a href="${pageContext.request.contextPath}/shop/order?productId=${product.id}&quantity=1" class="btn btn-success btn-block">Buy Now</a>
                     <a href="${pageContext.request.contextPath}/index" class="btn btn-outline-info btn-block">Continue Shopping</a>
                      </sec:authorize>
                 </div>

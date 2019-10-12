@@ -80,9 +80,8 @@
                                                 <h5><c:out value="${row.name}"/></h5>
                                                 <h5 style="color: red; ">$<c:out value="${row.price}"/></h5>
                                                 <input id="id" type="hidden" value="<c:out value="${row.id}"/>"/>
-                                                <a href="${pageContext.request.contextPath}/details?id=${row.id}">Detail</a>
                                                 <sec:authorize access="!hasRole('ROLE_ADMIN')">
-                                                    <a href="${pageContext.request.contextPath}/shop/order?productId=${row.id}&quantity=1" class="btn btn-outline-info">Add to card</a>
+                                                    <a href="${pageContext.request.contextPath}/shop/order?productId=${row.id}&quantity=1" class="btn btn-success">Buy Now</a>
                                                 </sec:authorize>
                                             </div>
                                         </div>
