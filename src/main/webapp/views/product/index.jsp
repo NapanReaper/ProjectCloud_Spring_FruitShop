@@ -6,13 +6,11 @@
 <html>
     <jsp:include page="../header.jsp"></jsp:include>
 
-        <body>
+    <body>
         <jsp:include page="../nav.jsp"></jsp:include>
             <!-- Page Content -->
             <div class="container">
-
                 <div class="row">
-
                     <div class="col-md-3">
                         <p class="lead">Categories</p>
                         <div class="list-group">
@@ -21,11 +19,8 @@
                         </c:forEach>
                     </div>
                 </div>
-
                 <div class="col-md-9">
-
                     <div id="demo" class="carousel slide" data-ride="carousel">
-
                         <!-- Indicators -->
                         <ul class="carousel-indicators">
                             <li data-target="#demo" data-slide-to="0" class="active"></li>
@@ -124,7 +119,6 @@
                     </div>
                     <!-- /Show Items -->
                 </div>
-
             </div>
         </div>
         <!-- /.container -->

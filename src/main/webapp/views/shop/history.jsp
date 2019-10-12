@@ -12,6 +12,7 @@
                 update_amounts();
                 update_total_amounts();
                 loadDetail();
+                hideDetail();
             });
             // Update subtotal price on quantity 
             function update_amounts() {
@@ -40,8 +41,28 @@
             }
             function loadDetail() {
                 $('.cart-test').each(function () {
-                    var i = $('cart-row', this);
-                    $(i).hide();
+                    $('.show-detail', this).click(function () {
+                        $('.cart-test').each(function () {
+                            var i = $('.cart-row', this);
+                            var e = $('.hide-detail', this);
+                            $(i).show();
+                            $(e).show();
+                            return false;
+                        });
+                    });
+                });
+            }
+            function hideDetail() {
+                $('.cart-test').each(function () {
+                    $('.hide-detail', this).click(function () {
+                        $('.cart-test').each(function () {
+                            var i = $('.cart-row', this);
+                            $(i).hide();
+                            var e = $('.float-right', this);
+                            $(e).hide();
+                            return false;
+                        });
+                    });
                 });
             }
         </script>
@@ -57,10 +78,8 @@
                     <c:forEach var="row" items="${history}" varStatus="counter">
                         <div class="cart-test">
                             <div class="row align-items-center cart">
-                                <div class="col-2">
-                                    <button type="button" class="btn btn-link"
-                                            data-toggle="modal" onclick="loadDetail(this)"
-                                            data-target=".bd-example-modal-lg">Order's ${row.id}</button>
+                                <div class="col-2 show-detail">
+                                    <button type="button" class="btn btn-link">Order's ${row.id}</button>
                                 </div>
                                 <div class="col-4">
                                     <h4>
@@ -76,9 +95,12 @@
                                         <h5>Owner: ${row.user.username}</h4>
                                     </div>
                                 </sec:authorize>
+                                <div class="float-right hide-detail" style="display: none">
+                                    <button type="button" class="btn btn-link">Hide</button>
+                                </div>
                             </div>
                             <c:forEach var="item" items="${row.listOrderDetail}" varStatus="counter">
-                                <div class="row align-items-center cart-row">
+                                <div class="row align-items-center cart-row" style="display: none">
                                     <input type="hidden" value="${item.quantity}" 
                                            data-unit-price="${item.price}" 
                                            class="cart-variant--quantity_input">
@@ -112,7 +134,7 @@
         <c:if test="${not testHistory}">
             <div>
                 <h3>    
-                Buy something!
+                    Buy something!
                 </h3>
             </div>                
         </c:if>
