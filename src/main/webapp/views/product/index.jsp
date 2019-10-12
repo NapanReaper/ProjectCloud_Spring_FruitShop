@@ -33,17 +33,17 @@
                         </ul>
 
                         <!-- The slideshow -->
-<!--                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="../image/BIG1.jpg" alt="Los Angeles" width="100%" height="500">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="../image/BIG2.jpg" alt="Chicago" width="100%" height="500">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="../image/BIG5.jpg" alt="New York" width="100%" height="500">
-                            </div>
-                        </div>-->
+                        <!--                        <div class="carousel-inner">
+                                                    <div class="carousel-item active">
+                                                        <img src="../image/BIG1.jpg" alt="Los Angeles" width="100%" height="500">
+                                                    </div>
+                                                    <div class="carousel-item">
+                                                        <img src="../image/BIG2.jpg" alt="Chicago" width="100%" height="500">
+                                                    </div>
+                                                    <div class="carousel-item">
+                                                        <img src="../image/BIG5.jpg" alt="New York" width="100%" height="500">
+                                                    </div>
+                                                </div>-->
 
                         <!-- Left and right controls -->
                         <a class="carousel-control-prev" href="#demo" data-slide="prev">
@@ -88,18 +88,15 @@
                                     <div class="col-md-4 float-left" style="margin-bottom: 20px;">
                                         <div class="card" style=" padding: 0px;">
                                             <c:if test="${empty row.thumnail}">
-                                                <img class="card-img-top product-row-thumbnail" alt="Preview not available" src="/image/800x300.png" width="100%" height="100px"/>
+                                                <img class="card-img-top product-row-thumbnail" alt="Preview not available" src="/image/800x400.png" width="100%" height="150px"/>
                                             </c:if>
                                             <c:if test="${not empty row.thumnail}">
-                                                <img class="card-img-top product-row-thumbnail" alt="Preview not available" src="${row.thumnail}" width="100%" height="100px"/>
+                                                <a href="${pageContext.request.contextPath}/details?id=${row.id}"><img class="card-img-top product-row-thumbnail" alt="Preview not available" src="${row.thumnail}" width="100%" height="150px"/></a>
                                             </c:if>
                                             <div class="card-body" style="padding-bottom: 5px;">
-                                                <h5 class="float-right">$<c:out value="${row.price}"/></h5>
                                                 <h5><c:out value="${row.name}"/></h5>
-                                                <div class="truncate-text demission"><c:out value="${row.description}"/></div>
+                                                <h5 style="color: red; ">$<c:out value="${row.price}"/></h5>
                                                 <input id="id" type="hidden" value="<c:out value="${row.id}"/>"/>
-                                                <a href="${pageContext.request.contextPath}/details?id=${row.id}">Detail</a>
-                                                <a href="${pageContext.request.contextPath}/shop/order?productId=${row.id}&quantity=1" class="btn btn-outline-info">Add to card</a>
                                             </div>
                                         </div>
                                     </div>
