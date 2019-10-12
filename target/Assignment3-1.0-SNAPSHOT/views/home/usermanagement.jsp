@@ -33,9 +33,12 @@
                         </thead>
                         <tbody>
                         <s:if test="listuser.size() > 0">
-                            <c:forEach var="row" items="${listuser}">
+                            <c:forEach var="row" items="${listuser}" varStatus="counter">
                                 <tr>
-                                    <th scope="row">${row.user_id.user_id}</th>
+                                    <th scope="row">
+                                        ${counter.count}
+                                        <input type="hidden" value="${row.user_id.user_id}"/>
+                                    </th>
                                     <td>${row.user_id.username}</td>
                                     <td>${row.user_id.email}</td>
                                     <td>${row.user_id.phone}</td>
@@ -49,7 +52,7 @@
                                         <td>Banned</td>
                                     </c:if>
                                     <td>
-                                        <div class="inner"><a href="${pageContext.request.contextPath}/edit-user?user_id=${row.user_id.user_id}" class="btn btn-info">Edit</a> </div>                       
+                                        <%--<div class="inner"><a href="${pageContext.request.contextPath}/edit-user?user_id=${row.user_id.user_id}" class="btn btn-info">Edit</a> </div>--%>                       
                                         <div class="inner">
                                             <c:if test="${row.user_id.enabled == 1}">
                                                 <button class="btn btn-danger" onclick="removeUser(${row.user_id.user_id})" style="margin-left: 10px;">Ban</button>
@@ -89,6 +92,7 @@
     }
 
     function unbanUser(user_id) {
+        console.log(user_id)
         var c = confirm("Are you sure to unban this user");
         if (c) {
             $.ajax({
