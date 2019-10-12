@@ -5,9 +5,10 @@
 <!DOCTYPE html>
 <html>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+    <nav class="navbar navbar-expand-sm bg-dark  fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
+                <img style="width: 50px; height: 50px" src="https://cdn4.vectorstock.com/i/1000x1000/35/93/fruit-shop-showcase-stand-with-fruits-vector-12633593.jpg">
                 <a class="navbar-brand" href="${pageContext.request.contextPath}/index">Fruit Shop</a>
             </div>
             <ul class="nav navbar-nav mr-auto">
@@ -47,16 +48,16 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li style="margin-right: 10px">
 
+                <li style="margin-right: 10px; ">
                     <sec:authorize access="isAuthenticated()">
                         <sec:authentication var="principal" property="principal"/>
-                        <a class="nav-link" href="#"><span class="glyphicon glyphicon-user"></span>
-                            Hello: ${principal.username}
+                        <a class="nav-link" href="#"><span class="glyphicon glyphicon-log-in"></span>
+                            ${principal.username}
                         </a>
                     </sec:authorize>
                     <sec:authorize access="!isAuthenticated()">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/auth/register"><span class="glyphicon glyphicon-user"></span>
+                        <a style="color: #333" class="nav-link" href="${pageContext.request.contextPath}/auth/register"><span class="glyphicon glyphicon-user"></span>
                             Sign up
                         </a>
                     </sec:authorize>

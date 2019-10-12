@@ -22,30 +22,20 @@
                         </c:forEach>
                     </div>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-4">
                     <div class="thumbnail">
-                        <img class="img-responsive" src="${product.thumnail}" alt="Preview not available">
-                        <div class="caption-full">
-                            <h4 class="float-right">${product.price} $</h4>
-                            <h4><b>${product.name}</b>
-                            </h4>
-                            <h4>Description:</h4>
-                            <p>${product.description}</p>
-                            <h4>Amount: ${product.amount} </h4>
-                            <h4>Category: ${product.category.name} </h4>
-                            <sec:authorize access="hasRole('ROLE_USER')">
-                            <a href="${pageContext.request.contextPath}/shop/order?id=${product.id}&quantity=1" class="btn btn-outline-info btn-block">Add to card</a>
-                            </sec:authorize>
-                            <a href="${pageContext.request.contextPath}/index" class="btn btn-outline-info btn-block">Return</a>
-                        </div>
-
+                        <h4><b>${product.name}</b></h4>
+                    <div style="background-color: darkgray"><img style="margin: 1px; width: 348px;" src="${product.thumnail}" alt="Preview not available"></div>
                     </div>
-
                 </div>
-
+                    <div class="caption-full" style="width: 300px">
+                    <h4 style="color: red">${product.price} $</h4>
+                    <p style="color: blue">${product.description}</p>
+                    <h4>Amount: ${product.amount} </h4>
+                    <a href="${pageContext.request.contextPath}/shop/order?productId=${product.id}&quantity=1" class="btn btn-outline-success btn-block">Buy Now</a>
+                    <a href="${pageContext.request.contextPath}/index" class="btn btn-outline-info btn-block">Continue Shopping</a>
+                </div>
             </div>
-
         </div>       
-        <jsp:include page="../footer.jsp"></jsp:include>
     </body>
 </html>

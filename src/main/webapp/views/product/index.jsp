@@ -76,15 +76,14 @@
                                     <div class="col-md-4 float-left" style="margin-bottom: 20px;">
                                         <div class="card" style=" padding: 0px;">
                                             <c:if test="${empty row.thumnail}">
-                                                <img class="card-img-top product-row-thumbnail" alt="Preview not available" src="/image/800x300.png" width="100%" height="100px"/>
+                                                <img class="card-img-top product-row-thumbnail" alt="Preview not available" src="/image/800x400.png" width="100%" height="150px"/>
                                             </c:if>
                                             <c:if test="${not empty row.thumnail}">
-                                                <img class="card-img-top product-row-thumbnail" alt="Preview not available" src="${row.thumnail}" width="100%" height="100px"/>
+                                                <a href="${pageContext.request.contextPath}/details?id=${row.id}"><img class="card-img-top product-row-thumbnail" alt="Preview not available" src="${row.thumnail}" width="100%" height="150px"/></a>
                                             </c:if>
                                             <div class="card-body" style="padding-bottom: 5px;">
-                                                <h5 class="float-right">$<c:out value="${row.price}"/></h5>
                                                 <h5><c:out value="${row.name}"/></h5>
-                                                <div class="truncate-text demission"><c:out value="${row.description}"/></div>
+                                                <h5 style="color: red; ">$<c:out value="${row.price}"/></h5>
                                                 <input id="id" type="hidden" value="<c:out value="${row.id}"/>"/>
                                                 <a href="${pageContext.request.contextPath}/details?id=${row.id}">Detail</a>
                                                 <sec:authorize access="hasRole('ROLE_USER')">
