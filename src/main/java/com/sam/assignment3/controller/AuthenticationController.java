@@ -9,6 +9,7 @@ import com.sam.assignment3.entity.Role;
 import com.sam.assignment3.entity.User;
 import com.sam.assignment3.repository.RoleRepository;
 import com.sam.assignment3.repository.UserRepository;
+import java.util.Date;
 import java.util.List;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,7 @@ public class AuthenticationController {
     public String getRegisterForm(@Valid @ModelAttribute("user") User user,
             BindingResult result, ModelMap model){
         user.setEnabled(1);
+        user.setBirthday(new Date());
         List<User> listUser = userRepository.findAll();
         for (User user1 : listUser) {
             if(user.getUsername().equalsIgnoreCase(user1.getUsername())){
