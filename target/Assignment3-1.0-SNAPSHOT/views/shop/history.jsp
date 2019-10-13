@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
     <jsp:include page="../header.jsp"></jsp:include>
-        <title>History Admin Page</title>
+        <title>History Page</title>
         <script>
             $(document).ready(function () {
                 update_amounts();
@@ -41,26 +41,30 @@
             }
             function loadDetail() {
                 $('.cart-test').each(function () {
-                    $('.show-detail', this).click(function () {
+                    var c = $('.show-detail', this);
+                    $(c).click(function () {
                         $('.cart-test').each(function () {
                             var i = $('.cart-row', this);
                             var e = $('.hide-detail', this);
-                            $(i).show();
-                            $(e).show();
-                            return false;
+                            if ($(c).data('id') == $(i).data('id') && $(c).data('id') == $(e).data('id')) {
+                                $(i).show();
+                                $(e).show();
+                            }
                         });
                     });
                 });
             }
             function hideDetail() {
                 $('.cart-test').each(function () {
-                    $('.hide-detail', this).click(function () {
+                    var c = $('.hide-detail', this);
+                    $(c).click(function () {
                         $('.cart-test').each(function () {
                             var i = $('.cart-row', this);
-                            $(i).hide();
-                            var e = $('.float-right', this);
-                            $(e).hide();
-                            return false;
+                            var e = $('.hide-detail', this);
+                            if ($(c).data('id') == $(i).data('id') && $(c).data('id') == $(e).data('id')) {
+                                $(i).hide();
+                                $(e).hide();
+                            }
                         });
                     });
                 });
@@ -71,15 +75,18 @@
             <div class="container">
                 <div class="card shopping-cart">
                     <div class="card-header bg-dark text-light">
+                    <sec:authorize access="hasRole('ROLE_USER')">
                         <a href="../index" class="btn btn-outline-info btn-sm pull-right">Continue shopping</a>
-                        <div class="clearfix"></div>
-                    </div>
+                    </sec:authorize> 
+                    <h3>Order History</h3>
+                </div>
                 <c:if test="${history != null}" var="testHistory">
                     <c:forEach var="row" items="${history}" varStatus="counter">
                         <div class="cart-test">
                             <div class="row align-items-center cart">
-                                <div class="col-2 show-detail">
-                                    <button type="button" class="btn btn-link">Order's ${row.id}</button>
+                                <div class="col-2">
+                                    <button type="button" class="btn btn-link show-detail" 
+                                            data-id="${row.id}">Order's ${row.id}</button>
                                 </div>
                                 <div class="col-4">
                                     <h4>
@@ -95,12 +102,13 @@
                                         <h5>Owner: ${row.user.username}</h4>
                                     </div>
                                 </sec:authorize>
-                                <div class="float-right hide-detail" style="display: none">
-                                    <button type="button" class="btn btn-link">Hide</button>
+                                <div class="float-right">
+                                    <button type="button" class="btn btn-link hide-detail" 
+                                            data-id="${row.id}" style="display: none">Hide</button>
                                 </div>
                             </div>
                             <c:forEach var="item" items="${row.listOrderDetail}" varStatus="counter">
-                                <div class="row align-items-center cart-row" style="display: none">
+                                <div class="row align-items-center cart-row" style="display: none" data-id="${row.id}">
                                     <input type="hidden" value="${item.quantity}" 
                                            data-unit-price="${item.price}" 
                                            class="cart-variant--quantity_input">
