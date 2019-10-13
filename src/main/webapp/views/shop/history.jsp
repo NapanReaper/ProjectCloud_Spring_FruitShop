@@ -142,7 +142,7 @@
         <c:if test="${not testHistory}">
             <div>
                 <h3>    
-                    Buy something!
+                    You haven't buy anything go buy something!
                 </h3>
             </div>                
         </c:if>
