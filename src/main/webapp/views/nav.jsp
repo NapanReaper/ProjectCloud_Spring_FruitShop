@@ -8,7 +8,6 @@
     <nav class="navbar navbar-expand-sm bg-dark fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
-                <img style="width: 50px; height: 50px" src="https://cdn4.vectorstock.com/i/1000x1000/35/93/fruit-shop-showcase-stand-with-fruits-vector-12633593.jpg">
                 <a class="navbar-brand" href="${pageContext.request.contextPath}/index">Fruit Shop</a>
             </div>
             <ul class="nav navbar-nav mr-auto">
