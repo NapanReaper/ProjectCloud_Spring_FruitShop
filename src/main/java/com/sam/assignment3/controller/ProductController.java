@@ -6,6 +6,7 @@
 package com.sam.assignment3.controller;
 
 import com.sam.assignment3.entity.Category;
+import com.sam.assignment3.entity.MessageJson;
 import com.sam.assignment3.entity.Product;
 import com.sam.assignment3.repository.CategoryRepository;
 import com.sam.assignment3.repository.OrderDetailRepository;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -35,6 +37,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value = "")
 public class ProductController {
+
     @Autowired
     private ProductRepository productRepository;
     @Autowired
@@ -107,22 +110,22 @@ public class ProductController {
         }
         if (product.getCategory().getId() < 0) {
             model.put("listCate", categoryRepository.findAll());
-            model.put("errorCate", "Please choice");
+            model.put("errorCate", "Please choose a category");
             return "/product/create";
         }
-       
+
         productRepository.save(product);
         return "redirect:home/index";
     }
 
     @RequestMapping(value = "/details", method = RequestMethod.GET)
-    public ModelAndView details(@RequestParam(value = "id", required = false) int id, ModelMap model) throws SQLException {
+    public ModelAndView details(@RequestParam(value = "id", required = false) Long id, ModelMap model) throws SQLException {
         model.put("listCate", categoryRepository.findAll());
         return new ModelAndView("/product/details", "product", productRepository.findOne(id));
     }
 
     @RequestMapping(value = "/edit", method = RequestMethod.GET)
-    public ModelAndView edit(@RequestParam(value = "id", required = false) int id, ModelMap model) throws SQLException {
+    public ModelAndView edit(@RequestParam(value = "id", required = false) Long id, ModelMap model) throws SQLException {
         model.put("listCate", categoryRepository.findAll());
         return new ModelAndView("/product/edit", "product", productRepository.findOne(id));
     }
@@ -134,19 +137,40 @@ public class ProductController {
             model.put("listCate", categoryRepository.findAll());
             return "/product/edit";
         }
+        if (product.getCategory().getId() < 0) {
+            model.put("listCate", categoryRepository.findAll());
+            model.put("errorCate", "Please choose a category");
+            return "/product/edit";
+        }
+
         productRepository.save(product);
         return "redirect:home/index";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public String delete(@RequestParam(value = "id", required = false) int id, ModelMap model) throws SQLException {
+    public String delete(@RequestParam(value = "id", required = false) Long id, ModelMap model) throws SQLException {
         if (!orderDetailRepository.findProductById(id).isEmpty()) {
             model.put("listCate", categoryRepository.findAll());
-            model.put("error", "Sản phẩm đang được sử dụng");
+            model.put("error", "Product in use");
             model.addAttribute("error", "Product in use");
             return "redirect:home/index";
         }
+        
         productRepository.delete(id);
         return "redirect:home/index";
+       
+    }
+    
+    @RequestMapping(value = "/deleteProduct", method = RequestMethod.DELETE)
+    public @ResponseBody
+    MessageJson deleteProduct(@RequestParam(value = "product_id", required = false) Long id) {
+        MessageJson m = new MessageJson("This product is in use", false);
+        System.out.println("delete id: "+id);
+        if ( orderDetailRepository.findProductById(id).isEmpty()) {
+            productRepository.delete(id);
+            m.setMessage("Delete success");
+            m.setStatus(Boolean.TRUE);
+        }        
+        return m;
     }
 }

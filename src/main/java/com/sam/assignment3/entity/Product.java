@@ -6,17 +6,21 @@
 package com.sam.assignment3.entity;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
+import javax.validation.constraints.Min;
 
 @Entity
 @Table(name = "products")
@@ -25,32 +29,28 @@ public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Long id;
     @Column(name = "name", nullable = true)
     @NotNull
-    @Size(min = 5,max = 100)   
+    @Size(min = 5, max = 100)
     private String name;
     @Column(name = "description", nullable = true)
     private String description;
     @Column(name = "price", nullable = true)
-    private double price;
+    @Min(0)
+    private float price;
     @Column(name = "amount", nullable = true)
+    @Min(0)
     private int amount;
     @Column(name = "thumnail", nullable = true)
     private String thumnail;
-    
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product")
+    private List<OrderDetail> listOderDetail;
     @ManyToOne
-    @JoinColumn(name="cateId")
+    @JoinColumn(name = "cateId")
     private Category category;
 
-    public Product(int id, String name, String description, double price, int amount, String thumnail, Category category) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.amount = amount;
-        this.thumnail = thumnail;
-        this.category = category;
+    public Product() {
     }
 
     public Category getCategory() {
@@ -60,22 +60,20 @@ public class Product implements Serializable {
     public void setCategory(Category category) {
         this.category = category;
     }
-    
 
-   
-    
-
-    
-    
-    public Product() {
+    public List<OrderDetail> getListOderDetail() {
+        return listOderDetail;
     }
 
+    public void setListOderDetail(List<OrderDetail> listOderDetail) {
+        this.listOderDetail = listOderDetail;
+    }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -95,11 +93,11 @@ public class Product implements Serializable {
         this.description = description;
     }
 
-    public double getPrice() {
+    public float getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(float price) {
         this.price = price;
     }
 
@@ -117,7 +115,5 @@ public class Product implements Serializable {
 
     public void setThumnail(String thumnail) {
         this.thumnail = thumnail;
-    }
-
-    
+    } 
 }

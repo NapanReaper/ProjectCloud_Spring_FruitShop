@@ -5,16 +5,17 @@
  */
 package com.sam.assignment3.controller;
 
-import com.sam.assignment3.entity.Cart;
+import com.sam.assignment3.entity.Cart2;
 import com.sam.assignment3.entity.Order;
 import com.sam.assignment3.entity.OrderDetail;
 import com.sam.assignment3.repository.OrderDetailRepository;
 import com.sam.assignment3.repository.OrderRepository;
 import com.sam.assignment3.repository.ProductRepository;
-import java.time.Instant;
+import com.sam.assignment3.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,16 +32,19 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/shop")
 public class ShoppingController {
+
     @Autowired
     private ProductRepository productRepository;
     @Autowired
-    private OrderRepository orderRepository;
+    private OrderRepository masterRepository;
     @Autowired
-    private OrderDetailRepository orderDetailRepository;
+    private OrderDetailRepository detailRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-    private int isExistItem(int id, List<Cart> myCart) {
+    private int isExistItem(Long id, List<Cart2> myCart) {
         for (int i = 0; i < myCart.size(); i++) {
-            if (myCart.get(i).getProduct().getId() == id) {
+            if (Objects.equals(myCart.get(i).getProduct().getId(), id)) {
                 return i;
             }
         }
@@ -48,17 +52,17 @@ public class ShoppingController {
     }
 
     @RequestMapping(value = "/order", method = RequestMethod.GET)
-    public String order(@RequestParam int id,
+    public String order(@RequestParam Long productId,
             @RequestParam int quantity,
             HttpSession session) {
-        List<Cart> myCart = (List<Cart>) session.getAttribute("cart");
+        List<Cart2> myCart = (List<Cart2>) session.getAttribute("cart");
         if (myCart == null) {
             myCart = new ArrayList<>();
-            myCart.add(new Cart(productRepository.findOne(id), quantity));
+            myCart.add(new Cart2(productRepository.findOne(productId), quantity));
         } else {
-            int index = isExistItem(id, myCart);
+            int index = isExistItem(productId, myCart);
             if (index == -1) {
-                myCart.add(new Cart(productRepository.findOne(id), quantity));
+                myCart.add(new Cart2(productRepository.findOne(productId), quantity));
             } else {
                 int amount = myCart.get(index).getQuantity();
                 myCart.get(index).setQuantity(quantity + amount);
@@ -73,45 +77,52 @@ public class ShoppingController {
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public ModelAndView index(HttpSession session, ModelMap model) {
-        List<Cart> myCart = (List<Cart>) session.getAttribute("cart");
+        List<Cart2> myCart = (List<Cart2>) session.getAttribute("cart");
         double total = calTotal(myCart);
         model.put("total", total);
         return new ModelAndView("/shop/index", "myCart", myCart);
     }
+
     @RequestMapping(value = "/payment", method = RequestMethod.GET)
-    public ModelAndView payment( 
+    public ModelAndView payment(
             @RequestParam(value = "user", required = false) String username,
             HttpSession session) {
-        List<Cart> myCart = (List<Cart>) session.getAttribute("cart");
-        double total = calTotal(myCart);
-        orderRepository.save(new Order(username, Date.from(Instant.now()),total));
-        List<Order> listoder = orderRepository.findAll();
-        for (Cart cart : myCart) {
-            orderDetailRepository.save(new OrderDetail(cart.getProduct(), listoder.get(listoder.size()-1), cart.getQuantity()));
-                    
+        List<Cart2> myCart = (List<Cart2>) session.getAttribute("cart");
+        Order om = new Order();
+        om.setDateCreate(new Date());
+        om.setUser(userRepository.getUserFromUsername(username));
+        masterRepository.save(om);
+        for (Cart2 cart : myCart) {
+            OrderDetail od = new OrderDetail();
+            od.setOrderMaster(om);
+            od.setPrice(cart.getProduct().getPrice());
+            od.setQuantity(cart.getQuantity());
+            od.setProduct(cart.getProduct());
+            detailRepository.save(od);
         }
+        session.removeAttribute("cart");    
         return new ModelAndView("/shop/payment");
     }
+
     @RequestMapping(value = "/history", method = RequestMethod.GET)
-    public ModelAndView history( 
+    public ModelAndView history(
             @RequestParam(value = "user", required = false) String username,
             HttpSession session) {
-        List<OrderDetail> listInDetails = new ArrayList<>();
-        List<OrderDetail> listDetails = new ArrayList<>();
-        List<Order> listOrder =  orderRepository.findByName(username);
-        for (Order order : listOrder) {
-        listInDetails = orderDetailRepository.findByName(order.getId());    
-            for (OrderDetail listInDetail : listInDetails) {
-                listDetails.add(listInDetail);
-            }
-        }
-        return new ModelAndView("/shop/history","history",listDetails);
+        List<Order> orderMaster = masterRepository.getOrderMasterByUserId(userRepository.getUserFromUsername(username));
+        return new ModelAndView("/shop/history", "history", orderMaster);
     }
 
-    private double calTotal(List<Cart> myCart) {
+    @RequestMapping(value = "/historyAdmin", method = RequestMethod.GET)
+    public ModelAndView history(
+            HttpSession session) {
+        List<Order> orderMaster = masterRepository.findAll();
+        return new ModelAndView("/shop/history", "history", orderMaster);
+    }
+
+    private double calTotal(List<Cart2> myCart) {
         double result = 0.0;
         if (myCart != null) {
-            for (Cart cart : myCart) {
+            for (Cart2 cart : myCart) {
                 result = result + cart.getQuantity() * cart.getProduct().getPrice();
             }
         }
@@ -119,12 +130,16 @@ public class ShoppingController {
     }
 
     @RequestMapping(value = "/remove", method = RequestMethod.GET)
-    public String remove(@RequestParam int id,
+    public String remove(@RequestParam Long productId,
             HttpSession session) {
-        List<Cart> myCart = (List<Cart>) session.getAttribute("cart");
-        int index = isExistItem(id, myCart);
+        List<Cart2> myCart = (List<Cart2>) session.getAttribute("cart");
+        int index = isExistItem(productId, myCart);
         myCart.remove(index);
-        session.setAttribute("cart", myCart);
+        if (myCart.isEmpty() || myCart == null) {
+            session.removeAttribute("cart");
+        } else {
+            session.setAttribute("cart", myCart);
+        }
         return "redirect:index";
     }
 }
