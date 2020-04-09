@@ -11,6 +11,7 @@ public class Cart implements Serializable {
     }
 
     public HashMap<Product, Integer> getCart() {
+    	System.out.println("getCart");
         return cart;
     }
 
